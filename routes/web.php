@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
+Route::get('/test', function(){
+    return view('test');
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    //get data from database
+    $data = "this is the data";
+    return view('dashboard', ['data'=>$data]);
 })->name('dashboard');
