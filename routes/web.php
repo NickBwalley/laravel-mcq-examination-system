@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
-Route::get('/test', function(){
-    return view('test');
-});
+Route::get('/test', [TestsController::class, "getTestQuestions"])->name('getTestQuestions');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //get data from database
