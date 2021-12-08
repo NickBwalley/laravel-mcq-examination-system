@@ -19,6 +19,31 @@ class TestsController extends Controller
         // the request contains the answers
         
         $answers = $request->all();
-        dd($answers);
+        // dd($answers);
+        $points = 0;
+        $percentage = 0;
+        $totalQuestions = 2;
+
+
+        foreach($answers as $questionId => $userAnswer){
+            // check if the id is not a number then don't try to get an answer
+            if(is_numeric($questionId)){
+                $questionInfo = DB::table('tests')->where('id', $questionId)->get(); 
+                //$questionInfo =  [0=>['id'=>1, name=>'', correct_answer=]]
+                
+                $correctAnswer = $questionInfo[0]->correct_answer;
+
+                if($correctAnswer == $userAnswer){
+                // give user a point 
+                $points++;
+                }
+            }
+            
+        }
+        // calculate the final score. 
+        $percentage = ($points/$totalQuestions) * 100; 
+        dd($percentage);
     }
+    
+    
 }
