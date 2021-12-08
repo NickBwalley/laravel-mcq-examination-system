@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::get('/test', [TestsController::class, "getTestQuestions"])->name('getTestQuestions');
 
+Route::post('/submitExam', [TestsController::class, "submitExam"])->name('submitExam');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //get data from database
     $data = "this is the data";

@@ -3,7 +3,9 @@
 @section('content')
 
 <div class="container mt-3">
-    <form action="">
+    <form action="{{ route('submitExam') }}" method="post">
+        {{csrf_field()}}
+
         @foreach($questions as $question)
         
         <fieldset class="mt-3" id="{{$question->id}}">
