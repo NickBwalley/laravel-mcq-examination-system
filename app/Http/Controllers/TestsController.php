@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 
 class TestsController extends Controller
 {
     //
 
     public function getTestQuestions(){
+
         $questions = DB::table('tests')->get();
         return view('test', ['questions' => $questions ]);
     }
@@ -20,6 +21,7 @@ class TestsController extends Controller
         
         $answers = $request->all();
         // dd($answers);
+
         $points = 0;
         $percentage = 0;
         $totalQuestions = 2;
@@ -44,15 +46,16 @@ class TestsController extends Controller
         $percentage = ($points/$totalQuestions) * 100; 
         // dd($percentage);
 
+        $id = Auth::user()->id;
         // insert the score in the results table in the database.
         DB::table('results')->insert([
-            'user_id'=>1,
+            'user_id'=>$id,
             'score'=>$percentage,
         ]);
 
         // return to main page. 
         return redirect()->route('main')->with('examSubmitted', 'The Exam has been submitted successfully, check your profile for the results later. ');
-        
+
     }
     
     

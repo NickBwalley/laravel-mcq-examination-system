@@ -5,7 +5,9 @@
         </h2>
     </x-slot>
 
-<div class="text-center">{{$data}}</div>
+<div class="text-center alert alert-success">
+    <a href="{{route('getTestQuestions')}}">Start Exam</a>
+</div>
 
     <!-- <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
