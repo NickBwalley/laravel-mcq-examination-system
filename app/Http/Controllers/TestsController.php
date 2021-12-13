@@ -42,7 +42,16 @@ class TestsController extends Controller
         }
         // calculate the final score. 
         $percentage = ($points/$totalQuestions) * 100; 
-        dd($percentage);
+        // dd($percentage);
+
+        // insert the score in the results table in the database.
+        DB::table('results')->insert([
+            'user_id'=>1,
+            'score'=>$percentage,
+        ]);
+
+        // return to main page. 
+        return view('index');
     }
     
     
