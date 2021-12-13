@@ -12,8 +12,16 @@ class TestsController extends Controller
 
     public function getTestQuestions(){
 
-        $questions = DB::table('tests')->get();
-        return view('test', ['questions' => $questions ]);
+        //check if the user has already taken the exam.
+        $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)->exists();
+
+        if($has_taken_exam){
+            return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
+        }else{
+            $questions = DB::table('tests')->get();
+            return view('test', ['questions'=>$questions]);
+        }
+        
     }
 
     public function submitExam(Request $request){
