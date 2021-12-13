@@ -51,7 +51,8 @@ class TestsController extends Controller
         ]);
 
         // return to main page. 
-        return view('index');
+        return redirect()->route('main')->with('examSubmitted', 'The Exam has been submitted successfully, check your profile for the results later. ');
+        
     }
     
     
