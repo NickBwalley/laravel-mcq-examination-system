@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TestsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,8 @@ Route::post('/submitExam', [TestsController::class, "submitExam"])->name('submit
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     //get data from database
     $data = "this is the data";
-    return view('dashboard', ['data'=>$data]);
+
+    // get all subjects 
+    $subjects = DB::table('subjects')->get();
+    return view('dashboard', ['data'=>$data, 'subjects'=>$subjects]);
 })->name('dashboard');
