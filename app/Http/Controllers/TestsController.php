@@ -24,6 +24,24 @@ class TestsController extends Controller
         
     }
 
+    public function registerExam(Request $request, $subject_id){
+
+        //check if user already registered!
+        $student_already_registered = DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subject_id)->exists();
+        if($student_already_registered){
+            return \redirect()->route('dashboard')->with('alreadyRegisteredForExam', 'You have already registered for exam before!'); 
+        }else{
+
+            DB::table('students')->insert([
+                'user_id'=>Auth::user()->id,
+                'name'=>Auth::user()->name,
+                'subject_id'=>$subject_id
+            ]);
+
+            return \redirect()->route('dashboard')->with('registeredForExam', 'You have successfully registered for exam!');
+        }
+    }
+
     public function submitExam(Request $request){
         // the request contains the answers
         

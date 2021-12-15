@@ -110,8 +110,9 @@
       </div>
 
      
-
+      
       <div class="table-responsive">
+      @include('addons.flash')
         <table class="table table-striped table-sm">
           <thead>
             <tr>
@@ -139,7 +140,7 @@
               <td>{{$subject->exam_deadline}}</td>
                  <!--Register check Logic-->
                 @if($subject->exam_deadline > date('Y-m-d H:i:s'))
-                <td> <a class="btn btn-primary btn-sm" href="">Register</a></td>
+                <td> <a class="btn btn-primary btn-sm" href="{{route('registerExam', ['subject_id'=>$subject->id])}}">Register</a></td>
                 @else
                 <td>Deadline passed!</td>
                 @endif

@@ -30,3 +30,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $subjects = DB::table('subjects')->get();
     return view('dashboard', ['data'=>$data, 'subjects'=>$subjects]);
 })->name('dashboard');
+
+Route::get('/register_exam/{subject_id}', [TestsController::class, "registerExam"])->name('registerExam');

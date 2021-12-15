@@ -18,3 +18,19 @@
 
 
 @endif
+
+@if(session('registeredForExam'))
+
+<div class="alert alert-success mt-3 text-center">
+{{session('registeredForExam')}} 
+</div>
+
+@endif
+
+@if(session('alreadyRegisteredForExam'))
+
+<div class="alert alert-danger mt-3 text-center">
+{{session('alreadyRegisteredForExam')}} 
+</div>
+
+@endif
