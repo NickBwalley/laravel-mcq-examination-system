@@ -149,7 +149,7 @@
                 @if($subject->exam_start_date > date('Y-m-d H:i:s'))
                 <td>Not Yet Time!</td>
                 @elseif($subject->exam_deadline > date('Y-m-d H:i:s'))
-                <td><a class="btn btn-danger btn-sm" href="">Start Exam</a></td>
+                <td><a class="btn btn-danger btn-sm" href="{{route('getTestQuestions', ['subject_id'=>$subject->id])}}">Start Exam</a></td>
                 @else
                 <td>Deadline passed!</td>
                 @endif

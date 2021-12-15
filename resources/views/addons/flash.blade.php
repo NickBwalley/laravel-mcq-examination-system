@@ -34,3 +34,11 @@
 </div>
 
 @endif
+
+@if(session('registerFirst'))
+
+<div class="alert alert-danger mt-3 text-center">
+{{session('registerFirst')}} 
+</div>
+
+@endif

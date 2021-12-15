@@ -10,17 +10,30 @@ class TestsController extends Controller
 {
     //
 
-    public function getTestQuestions(){
+    public function getTestQuestions(Request $request, $subject_id){
 
-        //check if the user has already taken the exam.
-        $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)->exists();
-
-        if($has_taken_exam){
-            return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
-        }else{
-            $questions = DB::table('tests')->get();
-            return view('test', ['questions'=>$questions]);
+        // has user registered for this exam.
+        $student_already_registered = DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subject_id)->exists();
+        
+        // if user has not registered for exam.
+        if(!$student_already_registered){
+            return \redirect()->route('dashboard')->with('registerFirst', 'You have not registered for this exam yet!'); 
         }
+        // user has already registered
+        else{
+            //check if the user has already taken the exam.
+            $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)
+                ->where('subject_id', $subject_id)->exists();
+
+            if($has_taken_exam){
+                return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
+            }else{
+                $questions = DB::table('tests')->where('subject_id', $subject_id)->get();
+                return view('test', ['questions'=>$questions]);
+            }
+        }
+
+        
         
     }
 

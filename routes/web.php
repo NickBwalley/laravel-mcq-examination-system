@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('index');
 })->name('main');
 
-Route::get('/test', [TestsController::class, "getTestQuestions"])->name('getTestQuestions')->middleware('auth');
+Route::get('/test/{subject_id}', [TestsController::class, "getTestQuestions"])->name('getTestQuestions')->middleware('auth');
 Route::post('/submitExam', [TestsController::class, "submitExam"])->name('submitExam');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
