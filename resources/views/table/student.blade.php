@@ -137,13 +137,20 @@
                 @endif
               <td>{{$subject->exam_start_date}}</td>
               <td>{{$subject->exam_deadline}}</td>
-              <td> <a class="btn btn-primary btn-sm" href="">Register</a></td>
+                 <!--Register check Logic-->
+                @if($subject->exam_deadline > date('Y-m-d H:i:s'))
+                <td> <a class="btn btn-primary btn-sm" href="">Register</a></td>
+                @else
+                <td>Deadline passed!</td>
+                @endif
+
+                <!--Start Exam check logic-->
                 @if($subject->exam_start_date > date('Y-m-d H:i:s'))
                 <td>Not Yet Time!</td>
                 @elseif($subject->exam_deadline > date('Y-m-d H:i:s'))
                 <td><a class="btn btn-danger btn-sm" href="">Start Exam</a></td>
                 @else
-                <td>Deadline already passed!</td>
+                <td>Deadline passed!</td>
                 @endif
 
             </tr>
