@@ -78,13 +78,13 @@
             </a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('allResults')}}">
               <span data-feather="key"></span>
               Results
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{route('allTests')}}">
               <span data-feather="file"></span>
               Tests
             </a>

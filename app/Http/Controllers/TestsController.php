@@ -37,6 +37,18 @@ class TestsController extends Controller
         
     }
 
+    public function allResults(){
+        // get all results that belong to the currently logged in user.
+        $allResults = DB::table('results')->where('user_id', Auth::user()->id)->get();
+
+        return view('table.allResults', ['allResults'=>$allResults] );
+
+    }
+
+    public function allTests(){
+
+    }
+
     public function registerExam(Request $request, $subject_id){
 
         //check if user already registered!
