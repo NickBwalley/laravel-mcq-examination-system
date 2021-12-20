@@ -6,6 +6,8 @@
     <form action="{{ route('submitExam') }}" method="post">
         {{csrf_field()}}
 
+        <input type="hidden" value="{{$subject_id}}" name="subject_id"/>
+
         @foreach($questions as $question)
         
         <fieldset class="mt-3" id="{{$question->id}}">

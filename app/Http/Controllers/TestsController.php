@@ -29,7 +29,7 @@ class TestsController extends Controller
                 return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
             }else{
                 $questions = DB::table('tests')->where('subject_id', $subject_id)->get();
-                return view('test', ['questions'=>$questions]);
+                return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id]);
             }
         }
 
@@ -77,12 +77,14 @@ class TestsController extends Controller
         $percentage = 0;
         $totalQuestions = 2;
 
+        $subjectId = $request->input('subject_id');
+
 
         foreach($answers as $questionId => $userAnswer){
             // check if the id is not a number then don't try to get an answer
             if(is_numeric($questionId)){
                 $questionInfo = DB::table('tests')->where('id', $questionId)->get(); 
-                //$questionInfo =  [0=>['id'=>1, name=>'', correct_answer=]]
+                //$questionInfo =  [0=>['id'=>1, name=>'', correct_answer=1]]
                 
                 $correctAnswer = $questionInfo[0]->correct_answer;
 
@@ -97,11 +99,15 @@ class TestsController extends Controller
         $percentage = ($points/$totalQuestions) * 100; 
         // dd($percentage);
 
+        $subjectName = DB::table('subjects')->where('id', $subjectId)->value('name');
+
         $id = Auth::user()->id;
         // insert the score in the results table in the database.
         DB::table('results')->insert([
             'user_id'=>$id,
             'score'=>$percentage,
+            'subject_id'=>$subjectId,
+            'subject_name'=> $subjectName
         ]);
 
         // return to main page. 

@@ -35,7 +35,7 @@
             @foreach($allResults as $singleResult)
             <tr>
               <td>{{$singleResult->subject_id}}</td>
-              <td>Subject</td>
+              <td>{{$singleResult->subject_name}}</td>
               <td>{{$singleResult->score}}</td>
             </tr>
             @endforeach
