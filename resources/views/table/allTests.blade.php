@@ -37,33 +37,39 @@
           <tbody>
     
             @foreach($subjects as $subject)
-            <tr>
-              <td>{{$subject->id}}</td>
-              <td>{{$subject->name}}</td>
-                @if($subject->exam_availability == 1)
-                <td>Yes</td>
-                @else
-                <td>No</td>
-                @endif
-              <td>{{$subject->exam_start_date}}</td>
-              <td>{{$subject->exam_deadline}}</td>
-                 <!--Register check Logic-->
-                @if($subject->exam_deadline > date('Y-m-d H:i:s'))
-                <td> <a class="btn btn-primary btn-sm" href="{{route('registerExam', ['subject_id'=>$subject->id])}}">Register</a></td>
-                @else
-                <td>Deadline passed!</td>
-                @endif
 
-                <!--Start Exam check logic-->
-                @if($subject->exam_start_date > date('Y-m-d H:i:s'))
-                <td>Not Yet Time!</td>
-                @elseif($subject->exam_deadline > date('Y-m-d H:i:s'))
-                <td><a class="btn btn-danger btn-sm" href="{{route('getTestQuestions', ['subject_id'=>$subject->id])}}">Start Exam</a></td>
-                @else
-                <td>Deadline passed!</td>
-                @endif
+            @if($subject->exam_deadline > date('Y-m-d H:i:s'))
+                <tr>
+                <td>{{$subject->id}}</td>
+                <td>{{$subject->name}}</td>
+                    @if($subject->exam_availability == 1)
+                    <td>Yes</td>
+                    @else
+                    <td>No</td>
+                    @endif
+                <td>{{$subject->exam_start_date}}</td>
+                <td>{{$subject->exam_deadline}}</td>
+                    <!--Register check Logic-->
+                    @if($subject->exam_deadline > date('Y-m-d H:i:s'))
+                    <td> <a class="btn btn-primary btn-sm" href="{{route('registerExam', ['subject_id'=>$subject->id])}}">Register</a></td>
+                    @else
+                    <td>Deadline passed!</td>
+                    @endif
+
+                    <!--Start Exam check logic-->
+                    @if($subject->exam_start_date > date('Y-m-d H:i:s'))
+                    <td>Not Yet Time!</td>
+                    @elseif($subject->exam_deadline > date('Y-m-d H:i:s'))
+                    <td><a class="btn btn-danger btn-sm" href="{{route('getTestQuestions', ['subject_id'=>$subject->id])}}">Start Exam</a></td>
+                    @else
+                    <td>Deadline passed!</td>
+                    @endif
 
             </tr>
+            @else
+            <div></div>
+
+            @endif
             @endforeach
           </tbody>
         </table>

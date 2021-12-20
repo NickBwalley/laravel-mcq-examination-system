@@ -67,7 +67,8 @@ class TestsController extends Controller
                 'name'=>Auth::user()->name,
                 'subject_id'=>$subject_id
             ]);
-
+     
+            
             return \redirect()->route('dashboard')->with('registeredForExam', 'You have successfully registered for exam!');
         }
     }
@@ -114,6 +115,9 @@ class TestsController extends Controller
             'subject_id'=>$subjectId,
             'subject_name'=> $subjectName
         ]);
+
+        //remove student information from students table
+        DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subjectId)->delete();
 
         // return to main page. 
         return redirect()->route('main')->with('examSubmitted', 'The Exam has been submitted successfully, check your profile for the results later. ');
