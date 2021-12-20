@@ -50,7 +50,7 @@ class TestsController extends Controller
         $subjects = DB::table('students')->where('user_id', Auth::user()->id)
             ->join('subjects', 'students.subject_id', '=', 'subjects.id')->get();
         
-            dd($subjects);
+            return view('table.allTests', ['subjects' => $subjects]);
 
     }
 
