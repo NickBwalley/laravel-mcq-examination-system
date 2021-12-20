@@ -47,6 +47,11 @@ class TestsController extends Controller
 
     public function allTests(){
 
+        $subjects = DB::table('students')->where('user_id', Auth::user()->id)
+            ->join('subjects', 'students.subject_id', '=', 'subjects.id')->get();
+        
+            dd($subjects);
+
     }
 
     public function registerExam(Request $request, $subject_id){
