@@ -99,7 +99,7 @@ class TestsController extends Controller
 
         $points = 0;
         $percentage = 0;
-        $totalQuestions = 2;
+        $totalQuestions = 6;
 
         $subjectId = $request->input('subject_id');
 
