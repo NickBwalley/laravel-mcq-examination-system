@@ -14,23 +14,20 @@ class TestsController extends Controller
 
         // has user registered for this exam.
         $student_already_registered = DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subject_id)->exists();
-        
-        // if user has not registered for exam.
-        if(!$student_already_registered){
+        $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)
+                ->where('subject_id', $subject_id)->exists();        
+
+        if($has_taken_exam){
+            return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
+        }
+        else if(!$student_already_registered){
             return \redirect()->route('dashboard')->with('registerFirst', 'You have not registered for this exam yet!'); 
         }
         // user has already registered
         else{
             //check if the user has already taken the exam.
-            $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)
-                ->where('subject_id', $subject_id)->exists();
-
-            if($has_taken_exam){
-                return redirect()->route('main')->with('hasTakenExam', 'You have already taken the exam!');
-            }else{
                 $questions = DB::table('tests')->where('subject_id', $subject_id)->get();
                 return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id]);
-            }
         }
 
         
@@ -58,7 +55,14 @@ class TestsController extends Controller
 
         //check if user already registered!
         $student_already_registered = DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subject_id)->exists();
-        if($student_already_registered){
+        $has_taken_exam = DB::table('results')->where('user_id', Auth::user()->id)
+                            ->where('subject_id', $subject_id)->exists();
+        
+        if($has_taken_exam){
+            return \redirect()->route('dashboard')->with('hasTakenExam', 'You have already taken this exam before!'); 
+        }
+        
+        else if($student_already_registered){
             return \redirect()->route('dashboard')->with('alreadyRegisteredForExam', 'You have already registered for exam before!'); 
         }else{
 
