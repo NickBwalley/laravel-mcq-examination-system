@@ -3,6 +3,8 @@
 @section('content')
 
 <div class="container mt-3">
+
+<div id="deadline" class="alert alert-warning">Deadline is: {{$exam_deadline}}</div>
     <form action="{{ route('submitExam') }}" method="post">
         {{csrf_field()}}
 

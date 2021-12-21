@@ -27,7 +27,8 @@ class TestsController extends Controller
         else{
             //check if the user has already taken the exam.
                 $questions = DB::table('tests')->where('subject_id', $subject_id)->get();
-                return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id]);
+                $exam_deadline = DB::table('subjects')->where('id', $subject_id)->value('exam_deadline');
+                return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id, 'exam_deadline'=>$exam_deadline]);
         }
 
         
