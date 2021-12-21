@@ -63,6 +63,8 @@
             // submit exam automatically
             document.getElementById('submitExam').click();
         } 
+
+        // update remaining time every 5 minutes
     }, 1000);
 </script>
     

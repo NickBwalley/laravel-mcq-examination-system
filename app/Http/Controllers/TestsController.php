@@ -28,9 +28,20 @@ class TestsController extends Controller
             //check if the user has already taken the exam.
                 $questions = DB::table('tests')->where('subject_id', $subject_id)->get();
                 $exam_deadline = DB::table('subjects')->where('id', $subject_id)->value('exam_deadline');
+
+                //if student starts the exam for the first time. then return this
                 $duration = DB::table('subjects')->where('id', $subject_id)->value('duration');
-                return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id,
+                //if something goes wrong, then use remaining time
+                $remaining_time = DB::table('students')->where('user_id', Auth::user()->id)
+                    ->where('subject_id', $subject_id)->value('remaining_time');
+                if($remaining_time == null){
+                    return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id,
                              'exam_deadline'=>$exam_deadline, 'duration'=>$duration]);
+                } else{
+                    return view('test', ['questions'=>$questions, 'subject_id'=>$subject_id,
+                             'exam_deadline'=>$exam_deadline, 'duration'=>$remaining_time]);
+                }
+                
         }
 
         
