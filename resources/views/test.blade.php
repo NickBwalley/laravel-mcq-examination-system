@@ -44,7 +44,7 @@
         </fieldset>
         @endforeach
 
-        <button class="btn btn-primary mt-3" type="submit">finish exam</button>
+        <button id="submitExam" class="btn btn-primary mt-3" type="submit">finish exam</button>
 
     </form>
 
@@ -57,8 +57,12 @@
     setInterval(function () {
         var counter = time--, min=(counter/60)>>0,sec=(counter-min*60)+'';
         deadline.textContent='Exam closes in '+ min + ':'+(sec.length>1?'':'0')+sec
-        time!=0 || (time=duration);
-        timer.innerHTML = min; 
+        // time!=0 || (time=duration);
+        // timer.innerHTML = min;
+        if(counter == 0 ){
+            // submit exam automatically
+            document.getElementById('submitExam').click();
+        } 
     }, 1000);
 </script>
     
