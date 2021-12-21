@@ -37,3 +37,5 @@ Route::get('/register_exam/{subject_id}', [TestsController::class, "registerExam
 Route::get('/allResults', [TestsController::class, "allResults"])->name('allResults');
 
 Route::get('/allTests', [TestsController::class, "allTests"])->name('allTests');
+
+Route::get('/sendRemainingTime/{remaining_time}/subjectId/{subject_id}', [TestsController::class, "sendRemainingTime"])->name("sendRemainingTime");

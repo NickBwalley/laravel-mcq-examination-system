@@ -141,6 +141,13 @@ class TestsController extends Controller
         return redirect()->route('main')->with('examSubmitted', 'The Exam has been submitted successfully, check your profile for the results later. ');
 
     }
+
+    public function sendRemainingTime($remaining_time, $subject_id){
+        DB::table("students")->where("user_id", Auth::user()->id)
+            ->where("subject_id", $subject_id)->update(["remaining_time"=>$remaining_time]);   
+
+        return "updated remaining_time";
+    }
     
     
 }

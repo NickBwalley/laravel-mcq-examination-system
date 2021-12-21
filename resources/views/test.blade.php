@@ -54,6 +54,7 @@
     var duration = {{$duration}} * 60;
     var time = duration;
     var deadline = document.getElementById('deadline');
+    var subject_id = {{$subject_id}};
     setInterval(function () {
         var counter = time--, min=(counter/60)>>0,sec=(counter-min*60)+'';
         deadline.textContent='Exam closes in '+ min + ':'+(sec.length>1?'':'0')+sec
@@ -65,6 +66,24 @@
         } 
 
         // update remaining time every 5 minutes
+        function sendDuration(remaining_time){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log("success");
+                }
+            };
+
+            // var params = "remaining_time=" + min;
+            var url = '/sendRemainingTime/'+remaining_time+"/subjectId/"+subject_id;
+            xhttp.open("GET", url, true);
+
+            xhttp.send();
+        }
+
+        // call this function every 5 minutes 
+        var remaining_time = counter / 60;
+        sendDuration(remaining_time);
     }, 1000);
 </script>
     
