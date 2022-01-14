@@ -99,7 +99,7 @@ class TestsController extends Controller
 
         $points = 0;
         $percentage = 0;
-        $totalQuestions = 6;
+        $totalQuestions = 5;
 
         $subjectId = $request->input('subject_id');
 
@@ -138,7 +138,7 @@ class TestsController extends Controller
         DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subjectId)->delete();
 
         // return to main page. 
-        return redirect()->route('main')->with('examSubmitted', 'The Exam has been submitted successfully, check your profile for the results later. ');
+        return \redirect()->route('main')->with('examinationSubmitted', 'Exam submitted successfully. Check for your results!!');
 
     }
 

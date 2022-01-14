@@ -51,7 +51,7 @@
 </div>
 
 <script>
-    var duration = {{$duration}} * 60;
+    var duration = {{$duration}} * 1;
     var time = duration;
     var deadline = document.getElementById('deadline');
     var subject_id = {{$subject_id}};

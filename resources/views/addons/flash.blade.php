@@ -1,8 +1,8 @@
 
-@if(session('examSubmitted'))
+@if(session('examinationSubmitted'))
 
 <div class="alert alert-success mt-3 text-center">
-{{session('examSubmitted')}} 
+{{session('examinationSubmitted')}} 
 </div>
 
 
