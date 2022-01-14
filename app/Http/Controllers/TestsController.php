@@ -138,7 +138,7 @@ class TestsController extends Controller
         DB::table('students')->where('user_id', Auth::user()->id)->where('subject_id', $subjectId)->delete();
 
         // return to main page. 
-        return \redirect()->route('main')->with('examinationSubmitted', 'Exam submitted successfully. Check for your results!!');
+        return \redirect()->route('main')->with('examinationSubmitted', 'Exam submitted successfully. Check your profile results NOW!!!');
 
     }
 
